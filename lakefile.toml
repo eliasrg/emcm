@@ -1,0 +1,20 @@
+name = "emcm"
+version = "0.1.0"
+description = "Compute (co)homology and suspension maps of Eilenberg-MacLane spaces using Cartan-Moore constructions."
+defaultTargets = ["emcm"]
+srcDir = "src"
+
+[[lean_lib]]
+name = "EMCM"
+
+[[lean_lib]]
+name = "EMCMCli"
+
+[[lean_exe]]
+name = "emcm"
+root = "EMCMCli.Main"
+
+[[require]]
+name = "Cli"
+scope = "leanprover"
+rev = "v4.29.0"
