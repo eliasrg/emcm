@@ -1,6 +1,7 @@
 import EMCM
 import EMCMCli.Common
 import EMCMCli.LaTeX
+import EMCMCli.Version
 import Cli
 
 import Std.Data.HashMap
@@ -375,7 +376,7 @@ section Cli
     return 0
 
   def mainCmd := `[Cli|
-    emcm VIA run;
+    emcm VIA run; [version]
     "Compute (co)homology and suspension maps of \
     Eilenberg-MacLane spaces."
 

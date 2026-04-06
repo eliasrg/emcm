@@ -7,8 +7,35 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+        - os: ubuntu-latest
+          built-bin-name: emcm
+          release-bin-name: emcm-linux
+        - os: macos-latest
+          built-bin-name: emcm
+          release-bin-name: emcm-macos
+        - os: windows-latest
+          built-bin-name: emcm.exe
+          release-bin-name: emcm-windows
+
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: leanprover/lean-action@v1
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        uses: leanprover/lean-action@v1
+      - name: Rename binaries
+        env:
+          built: ${{ matrix.built-bin-name }}
+          release: ${{ matrix.release-bin-name }}
+        run: mv .lake/build/bin/$built $release
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          files: |
+            ${{ matrix.release-bin-name }}
+            LICENSE
