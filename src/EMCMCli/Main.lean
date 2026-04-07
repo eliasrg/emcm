@@ -183,7 +183,7 @@ section Cli
                                    (displayℤAs := toString A)
     | .Circle _ =>
       BhGHomology maxDeg h G ℤ
-      |>.print (name := BhGName h G) (coeffName := toString A)
+      |> Abstract.Cohomology.print (name := BhGName h G) (coeffName := toString A)
                (displayℤAs := toString A)
 
     return 0
